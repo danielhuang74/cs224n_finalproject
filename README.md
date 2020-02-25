@@ -16,3 +16,5 @@ python run_squad.py \
   --max_seq_length 384 \
   --doc_stride 128 \
   --output_dir /tmp/debug_squad/
+
+Forked from: https://github.com/huggingface/transformers
