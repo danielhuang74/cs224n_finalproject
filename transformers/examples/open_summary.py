@@ -4,5 +4,7 @@ event_acc.Reload()
 # Show all tags in the log file
 print(event_acc.Tags())
 
+print(event_acc.Scalars('loss'))
+
 # E. g. get wall clock, number of steps and value for a scalar 'Accuracy'
 #w_times, step_nums, vals = zip(*event_acc.Scalars('Accuracy'))
