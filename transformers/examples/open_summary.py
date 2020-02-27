@@ -5,4 +5,4 @@ event_acc.Reload()
 print(event_acc.Tags())
 
 # E. g. get wall clock, number of steps and value for a scalar 'Accuracy'
-w_times, step_nums, vals = zip(*event_acc.Scalars('Accuracy'))
+#w_times, step_nums, vals = zip(*event_acc.Scalars('Accuracy'))
