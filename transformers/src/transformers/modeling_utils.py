@@ -512,6 +512,11 @@ class PreTrainedModel(nn.Module, ModuleUtilsMixin):
             state_dict = state_dict.copy()
             if metadata is not None:
                 state_dict._metadata = metadata
+            
+            print("-----------------------saving the state_dict into loaded_dict.txt----------------------------")
+            f = open("loaded_dict.txt","w")
+            f.write(str(state_dict) )
+            f.close()
 
             # PyTorch's `_load_from_state_dict` does not copy parameters in a module's descendants
             # so we need to apply the function recursively.
