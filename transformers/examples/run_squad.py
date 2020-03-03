@@ -768,11 +768,14 @@ def main():
         do_lower_case=args.do_lower_case,
         cache_dir=args.cache_dir if args.cache_dir else None,
     )
+    
+    state_dict = torch.load('reinitialize_weights_except_embedding.bin', map_location="cpu")
     model = model_class.from_pretrained(
         args.model_name_or_path,
         from_tf=bool(".ckpt" in args.model_name_or_path),
         config=config,
         cache_dir=args.cache_dir if args.cache_dir else None,
+        state_dict=state_dict,
     )
 
     if args.local_rank == 0:
