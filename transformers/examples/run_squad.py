@@ -121,7 +121,7 @@ def reinitialize_weights():
 #                         'bert.encoder.layer.10.output.dense.bias'
 #                        ]
 #         if k in changed_keys:
-        if '.10.attention' in k:
+        if '10.intermediate' in k or '10.output' in k:
             print('REINITIALIZED: ', k)
             parameters = truncated_normal(pretrain_state_dict[k].shape)
             state_dict[k] = parameters
