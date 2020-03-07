@@ -4,7 +4,7 @@
 
 python run_squad.py \
   --model_type bert \
-  --model_name_or_path bert-base-cased \
+  --model_name_or_path bert-base-uncased \
   --do_train \
   --do_eval \
   --do_lower_case \
