@@ -93,7 +93,7 @@ MODEL_CLASSES = {
 
 
 from scipy.stats import truncnorm
-def truncated_normal(size, threshold=1):
+def truncated_normal(size, threshold=0.04):
     values = truncnorm.rvs(-threshold, threshold, size=size)
     x = torch.from_numpy(values)
     return x
@@ -107,7 +107,20 @@ def reinitialize_weights():
     
     state_dict = {}
     for k in pretrain_state_dict.keys():
-        if '.0.' in k or '.1.' in k:
+        changed_keys = ['bert.encoder.layer.0.attention.self.query.weight', 
+                        'bert.encoder.layer.0.attention.self.query.bias',
+                        'bert.encoder.layer.0.attention.self.key.weight',
+                        'bert.encoder.layer.0.attention.self.key.bias',
+                        'bert.encoder.layer.0.attention.self.value.weight',
+                        'bert.encoder.layer.0.attention.self.value.bias',
+                        'bert.encoder.layer.0.attention.output.dense.weight',
+                        'bert.encoder.layer.0.attention.output.dense.bias',
+                        'bert.encoder.layer.0.intermediate.dense.weight',
+                        'bert.encoder.layer.0.intermediate.dense.bias',
+                        'bert.encoder.layer.0.output.dense.weight',
+                        'bert.encoder.layer.0.output.dense.bias'
+                       ]
+        if k in changed_keys:
             print('REINITIALIZED: ', k)
             parameters = truncated_normal(pretrain_state_dict[k].shape)
             state_dict[k] = parameters
