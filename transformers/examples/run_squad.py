@@ -107,20 +107,21 @@ def reinitialize_weights():
     
     state_dict = {}
     for k in pretrain_state_dict.keys():
-        changed_keys = ['bert.encoder.layer.10.attention.self.query.weight', 
-                        'bert.encoder.layer.10.attention.self.query.bias',
-                        'bert.encoder.layer.10.attention.self.key.weight',
-                        'bert.encoder.layer.10.attention.self.key.bias',
-                        'bert.encoder.layer.10.attention.self.value.weight',
-                        'bert.encoder.layer.10.attention.self.value.bias',
-                        'bert.encoder.layer.10.attention.output.dense.weight',
-                        'bert.encoder.layer.10.attention.output.dense.bias',
-                        'bert.encoder.layer.10.intermediate.dense.weight',
-                        'bert.encoder.layer.10.intermediate.dense.bias',
-                        'bert.encoder.layer.10.output.dense.weight',
-                        'bert.encoder.layer.10.output.dense.bias'
-                       ]
-        if k in changed_keys:
+#         changed_keys = ['bert.encoder.layer.10.attention.self.query.weight', 
+#                         'bert.encoder.layer.10.attention.self.query.bias',
+#                         'bert.encoder.layer.10.attention.self.key.weight',
+#                         'bert.encoder.layer.10.attention.self.key.bias',
+#                         'bert.encoder.layer.10.attention.self.value.weight',
+#                         'bert.encoder.layer.10.attention.self.value.bias',
+#                         'bert.encoder.layer.10.attention.output.dense.weight',
+#                         'bert.encoder.layer.10.attention.output.dense.bias',
+#                         'bert.encoder.layer.10.intermediate.dense.weight',
+#                         'bert.encoder.layer.10.intermediate.dense.bias',
+#                         'bert.encoder.layer.10.output.dense.weight',
+#                         'bert.encoder.layer.10.output.dense.bias'
+#                        ]
+#         if k in changed_keys:
+            if '.10.' in k:
             print('REINITIALIZED: ', k)
             parameters = truncated_normal(pretrain_state_dict[k].shape)
             state_dict[k] = parameters
