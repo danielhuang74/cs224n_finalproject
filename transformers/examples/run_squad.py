@@ -107,7 +107,7 @@ def reinitialize_weights():
     
     state_dict = {}
     for k in pretrain_state_dict.keys():
-        if '.10.' in k or '.11.' in k:
+        if '.0.' in k or '.1.' in k:
             print('REINITIALIZED: ', k)
             parameters = truncated_normal(pretrain_state_dict[k].shape)
             state_dict[k] = parameters
