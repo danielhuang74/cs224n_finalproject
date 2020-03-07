@@ -798,18 +798,18 @@ def main():
     )
     
     
-    reinitialize_weight_file = reinitialize_weights()
-    state_dict = torch.load(reinitialize_weight_file, map_location="cpu")
+#     reinitialize_weight_file = reinitialize_weights()
+#     state_dict = torch.load(reinitialize_weight_file, map_location="cpu")
     
-    print("-----------------------------loaded random generarized weights from %s ----------------"%reinitialize_weight_file)
+#     print("-----------------------------loaded random generarized weights from %s ----------------"%reinitialize_weight_file)
     model = model_class.from_pretrained(
         args.model_name_or_path,
         from_tf=bool(".ckpt" in args.model_name_or_path),
         config=config,
         cache_dir=args.cache_dir if args.cache_dir else None,
-        state_dict=state_dict,
+#         state_dict=state_dict,
     )
-    print("----------------load model with random generarized weights from %s ---------------------"%reinitialize_weight_file)
+#     print("----------------load model with random generarized weights from %s ---------------------"%reinitialize_weight_file)
     if args.local_rank == 0:
         # Make sure only the first process in distributed training will download model & vocab
         torch.distributed.barrier()
