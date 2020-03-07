@@ -802,6 +802,7 @@ def main():
 #     state_dict = torch.load(reinitialize_weight_file, map_location="cpu")
     
 #     print("-----------------------------loaded random generarized weights from %s ----------------"%reinitialize_weight_file)
+    print("remove the reinitialize")
     model = model_class.from_pretrained(
         args.model_name_or_path,
         from_tf=bool(".ckpt" in args.model_name_or_path),
