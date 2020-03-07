@@ -100,8 +100,9 @@ def truncated_normal(size, threshold=1):
 
 def reinitialize_weights():
     REINITIALIZE_WEIGHTS_FILE = "weights/reinitialize_weights_layer10_layer11.bin"
-    pretrain_file="weights/bert-base-uncased-pytorch_model.bin"
+    pretrain_file="weights/bert-base-cased-pytorch_model.bin"
     pretrain_state_dict = torch.load(pretrain_file, map_location="cpu")
+    print('loaded pretrain: ', pretrain_file)
     
     state_dict = {}
     for k in pretrain_state_dict.keys():
