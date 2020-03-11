@@ -11,3 +11,8 @@ tmp/debug_squad6/checkpoint-65000/
 tmp/debug_squad6/pytorch_model.bin
 tmp/debug_squad7/checkpoint-65000/
 tmp/debug_squad7/config.json
+transformers/examples/.gitattributes
+.gitattributes
+transformers/examples/file2.out
+transformers/examples/file_20200305.out
+transformers/examples/file_20200306.out
