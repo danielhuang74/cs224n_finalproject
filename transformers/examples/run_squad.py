@@ -91,6 +91,50 @@ MODEL_CLASSES = {
 }
 
 
+
+from scipy.stats import truncnorm
+def truncated_normal(size, threshold=0.04):
+    values = truncnorm.rvs(-threshold, threshold, size=size)
+    x = torch.from_numpy(values)
+    return x
+
+def reinitialize_weights():
+    REINITIALIZE_WEIGHTS_FILE = "weights/reinitialize_weights_layer10_layer11.bin"
+    pretrain_file="weights/bert-base-cased-pytorch_model.bin"
+    print('----------------start loading pretrain--------------------------: ', pretrain_file)
+    pretrain_state_dict = torch.load(pretrain_file, map_location="cpu")
+    print('loaded pretrain: ', pretrain_file)
+    
+    state_dict = {}
+    for k in pretrain_state_dict.keys():
+#         changed_keys = ['bert.encoder.layer.10.attention.self.query.weight', 
+#                         'bert.encoder.layer.10.attention.self.query.bias',
+#                         'bert.encoder.layer.10.attention.self.key.weight',
+#                         'bert.encoder.layer.10.attention.self.key.bias',
+#                         'bert.encoder.layer.10.attention.self.value.weight',
+#                         'bert.encoder.layer.10.attention.self.value.bias',
+#                         'bert.encoder.layer.10.attention.output.dense.weight',
+#                         'bert.encoder.layer.10.attention.output.dense.bias',
+#                         'bert.encoder.layer.10.intermediate.dense.weight',
+#                         'bert.encoder.layer.10.intermediate.dense.bias',
+#                         'bert.encoder.layer.10.output.dense.weight',
+#                         'bert.encoder.layer.10.output.dense.bias'
+#                        ]
+#         if k in changed_keys:
+        if '10.intermediate' in k or '10.output' in k:
+            print('REINITIALIZED: ', k)
+            parameters = truncated_normal(pretrain_state_dict[k].shape)
+            state_dict[k] = parameters
+        else:
+            print('PRETAIN: ', k)
+            state_dict[k] = pretrain_state_dict[k]
+        
+    torch.save(state_dict, REINITIALIZE_WEIGHTS_FILE)
+    print("saved reinitialized weights: ", REINITIALIZE_WEIGHTS_FILE)
+    
+    return REINITIALIZE_WEIGHTS_FILE
+
+
 def set_seed(args):
     random.seed(args.seed)
     np.random.seed(args.seed)
@@ -769,8 +813,12 @@ def main():
         cache_dir=args.cache_dir if args.cache_dir else None,
     )
     
-    state_dict = torch.load('reinitialize_weights_layer0_layer1.bin', map_location="cpu")
-    print("-----------------------------loaded random generarized weights for layer 0 and 1 ----------------")
+    
+    reinitialize_weight_file = reinitialize_weights()
+    state_dict = torch.load(reinitialize_weight_file, map_location="cpu")
+    
+    print("-----------------------------loaded random generarized weights from %s ----------------"%reinitialize_weight_file)
+#     print("remove the reinitialize")
     model = model_class.from_pretrained(
         args.model_name_or_path,
         from_tf=bool(".ckpt" in args.model_name_or_path),
@@ -778,7 +826,7 @@ def main():
         cache_dir=args.cache_dir if args.cache_dir else None,
         state_dict=state_dict,
     )
-    print("----------------load model with random generarized weights for layer 0 and 1---------------------")
+    print("----------------load model with random generarized weights from %s ---------------------"%reinitialize_weight_file)
     if args.local_rank == 0:
         # Make sure only the first process in distributed training will download model & vocab
         torch.distributed.barrier()
