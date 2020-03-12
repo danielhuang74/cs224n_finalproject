@@ -637,7 +637,7 @@ def main():
     model_state_dict = "realtmp/CoLA/pytorch_model.bin"
     print("+++++++++++++++++++++++++++++++++++++++++++++++")
     print("Loaded CoLA model")
-    model = model.load_state_dict(torch.load(model_state_dict))
+    model.load_state_dict(torch.load(model_state_dict))
 
 
 
