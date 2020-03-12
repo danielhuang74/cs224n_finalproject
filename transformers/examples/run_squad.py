@@ -99,7 +99,7 @@ def truncated_normal(size, threshold=0.04):
     return x
 
 def reinitialize_weights():
-    REINITIALIZE_WEIGHTS_FILE = "weights/reinitialize_weights_layer10_layer11.bin"
+    REINITIALIZE_WEIGHTS_FILE = "weights/reinitialize_klayers_k11.bin"
     pretrain_file="weights/bert-base-cased-pytorch_model.bin"
     print('----------------start loading pretrain--------------------------: ', pretrain_file)
     pretrain_state_dict = torch.load(pretrain_file, map_location="cpu")
@@ -121,7 +121,7 @@ def reinitialize_weights():
 #                         'bert.encoder.layer.10.output.dense.bias'
 #                        ]
 #         if k in changed_keys:
-        if '10.intermediate' in k or '10.output' in k:
+        if 'layer.11' in k:
             print('REINITIALIZED: ', k)
             parameters = truncated_normal(pretrain_state_dict[k].shape)
             state_dict[k] = parameters
