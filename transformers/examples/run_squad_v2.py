@@ -957,7 +957,7 @@ if __name__ == "__main__":
     print(current_date)
     print('-'*40 + 'reinitialize all layer list'+ '-'*40)
     print("layer_dict",layer_dict)
-    save_result('ouputs/layer_dict_%s.txt'%(current_date) , layer_dict)
+    save_result('outputs/layer_dict_%s.txt'%(current_date) , layer_dict)
 
     results = {}
     for key, layer_list in layer_dict.items():
@@ -965,5 +965,5 @@ if __name__ == "__main__":
         result = main(key, layer_list)
         results[key] = result
 
-    save_result('ouputs/allrun_results_%s.txt'%(current_date) , results)  
+    save_result('outputs/allrun_results_%s.txt'%(current_date) , results)  
      
