@@ -817,7 +817,7 @@ def main():
 #     reinitialize_weight_file = reinitialize_weights()
 #     state_dict = torch.load(reinitialize_weight_file, map_location="cpu")
     
-    print("-----------------------------loaded random generarized weights from %s ----------------"%reinitialize_weight_file)
+#     print("-----------------------------loaded random generarized weights from %s ----------------"%reinitialize_weight_file)
 #     print("remove the reinitialize")
     model = model_class.from_pretrained(
         args.model_name_or_path,
@@ -826,7 +826,7 @@ def main():
         cache_dir=args.cache_dir if args.cache_dir else None,
 #         state_dict=state_dict, # UNCOMMENT IF REINITIALIZE
     )
-    print("----------------load model with random generarized weights from %s ---------------------"%reinitialize_weight_file)
+#     print("----------------load model with random generarized weights from %s ---------------------"%reinitialize_weight_file)
     if args.local_rank == 0:
         # Make sure only the first process in distributed training will download model & vocab
         torch.distributed.barrier()
