@@ -92,7 +92,7 @@ MODEL_CLASSES = {
     "albert": (AlbertConfig, AlbertForQuestionAnswering, AlbertTokenizer),
 }
 
-def get_date()():
+def get_date():
     return datetime.datetime.now().strftime('%Y-%m-%d')
 
 def save_result(filename, result):
