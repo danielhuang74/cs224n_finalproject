@@ -949,5 +949,5 @@ if __name__ == "__main__":
         result = main(key, layer_list)
         results[key] = result
 
-    save_result('ouputs/layer_dict_%s.txt'%(current_date) , layer_dict)  
+    save_result('ouputs/allrun_results_%s.txt'%(current_date) , results)  
      
