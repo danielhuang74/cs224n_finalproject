@@ -1156,7 +1156,7 @@ if __name__ == "__main__":
     results = {}
     for key, layer_list in layer_dict.items():
         print('-'*40 + 'start reinitializing layer '+  key+ '-'*40)
-        result = main_f(arg, key, layer_list)
+        result = main_f(args, key, layer_list)
         results[key] = result
 
     save_result('outputs/allrun_results_%s.txt'%(current_date) , results)  
