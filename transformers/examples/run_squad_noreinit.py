@@ -824,7 +824,7 @@ def main():
         from_tf=bool(".ckpt" in args.model_name_or_path),
         config=config,
         cache_dir=args.cache_dir if args.cache_dir else None,
-        state_dict=state_dict, # UNCOMMENT IF REINITIALIZE
+        #state_dict=state_dict, # UNCOMMENT IF REINITIALIZE
     )
     print("----------------load model with random generarized weights from %s ---------------------"%reinitialize_weight_file)
     if args.local_rank == 0:
