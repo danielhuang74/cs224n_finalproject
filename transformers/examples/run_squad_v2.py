@@ -953,6 +953,7 @@ if __name__ == "__main__":
         final = final + new_l 
         key = 'layer%s'%str(i)
         layer_dict[key] = final
+    layer_dict['no_reinitialize'] = []
 
     current_date = get_date()
     print(current_date)
