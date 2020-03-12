@@ -731,7 +731,7 @@ def main_f(args, layer_key, reinitialized_layer_list):
 
     logger.info("Results: {}".format(results))
     current_date = get_date()
-    save_result('evaluation_result_s_s.txt'%(layer_key,current_date) , result)
+    save_result('evaluation_result_%s_%s.txt'%(layer_key,current_date) , result)
 
     return results
 
