@@ -463,6 +463,14 @@ def main():
     parser.add_argument(
         "--config_name", default="", type=str, help="Pretrained config name or path if not the same as model_name",
     )
+
+    parser.add_argument(
+        "--other_finetuned_model", 
+        default=None, 
+        type=str, 
+        help="Loading finetuned  model instead of pretrained BERT",
+    )
+
     parser.add_argument(
         "--tokenizer_name",
         default="",
@@ -634,10 +642,12 @@ def main():
         cache_dir=args.cache_dir if args.cache_dir else None,
     )
 
-    # model_state_dict = "realtmp/CoLA/pytorch_model.bin"
-    # print("+++++++++++++++++++++++++++++++++++++++++++++++")
-    # print("Loaded CoLA model")
-    # model = model.load_state_dict(torch.load(model_state_dict))
+     
+    model_state_dict = args.other_finetuned_model
+    if model_state_dict != None: 
+        print("+++++++++++++++++++++++++++++++++++++++++++++++")
+        print("Loaded CoLA model")
+        model = model.load_state_dict(torch.load(model_state_dict))
 
 
 
