@@ -30,6 +30,7 @@ from torch.utils.data.distributed import DistributedSampler
 from tqdm import tqdm, trange
 import csv
 import datetime
+from collections import OrderedDict
 
 from transformers import (
     WEIGHTS_NAME,
@@ -942,7 +943,7 @@ if __name__ == "__main__":
                     'bert.encoder.layer.NUM.output.dense.bias',
                     'bert.encoder.layer.NUM.output.LayerNorm.gamma',
                     'bert.encoder.layer.NUM.output.LayerNorm.beta',]
-    layer_dict = {}
+    layer_dict = OrderedDict()
     final = []
     for i in range(11,-1,-1):
         new_l = []
