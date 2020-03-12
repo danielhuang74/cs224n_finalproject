@@ -559,8 +559,8 @@ def load_and_cache_examples(args, tokenizer, evaluate=False, output_examples=Fal
     return dataset
 
 
-def main(layer_key, reinitialized_layer_list):
-    parser = argparse.ArgumentParser()
+def main(parser, layer_key, reinitialized_layer_list):
+#     parser = argparse.ArgumentParser()
 
     # Required parameters
     parser.add_argument(
@@ -927,6 +927,7 @@ if __name__ == "__main__":
     """
     run the model with different initialization
     """
+    parser = argparse.ArgumentParser()
     l = [                    'bert.encoder.layer.NUM.attention.self.query.weight',
                     'bert.encoder.layer.NUM.attention.self.query.bias',
                     'bert.encoder.layer.NUM.attention.self.key.weight',
@@ -945,6 +946,7 @@ if __name__ == "__main__":
                     'bert.encoder.layer.NUM.output.LayerNorm.beta',]
     layer_dict = OrderedDict()
     final = []
+    
     for i in range(11,-1,-1):
         new_l = []
         for layer in l:
@@ -964,7 +966,7 @@ if __name__ == "__main__":
     results = {}
     for key, layer_list in layer_dict.items():
         print('-'*40 + 'start reinitializing layer '+  key+ '-'*40)
-        result = main(key, layer_list)
+        result = main(parser, key, layer_list)
         results[key] = result
 
     save_result('outputs/allrun_results_%s.txt'%(current_date) , results)  
