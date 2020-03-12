@@ -926,6 +926,22 @@ if __name__ == "__main__":
     """
     run the model with different initialization
     """
+    l = [                    'bert.encoder.layer.NUM.attention.self.query.weight',
+                    'bert.encoder.layer.NUM.attention.self.query.bias',
+                    'bert.encoder.layer.NUM.attention.self.key.weight',
+                    'bert.encoder.layer.NUM.attention.self.key.bias',
+                    'bert.encoder.layer.NUM.attention.self.value.weight',
+                    'bert.encoder.layer.NUM.attention.self.value.bias',
+                    'bert.encoder.layer.NUM.attention.output.dense.weight',
+                    'bert.encoder.layer.NUM.attention.output.dense.bias',
+                    'bert.encoder.layer.NUM.attention.output.LayerNorm.gamma',
+                    'bert.encoder.layer.NUM.attention.output.LayerNorm.beta',
+                    'bert.encoder.layer.NUM.intermediate.dense.weight',
+                    'bert.encoder.layer.NUM.intermediate.dense.bias',
+                    'bert.encoder.layer.NUM.output.dense.weight',
+                    'bert.encoder.layer.NUM.output.dense.bias',
+                    'bert.encoder.layer.NUM.output.LayerNorm.gamma',
+                    'bert.encoder.layer.NUM.output.LayerNorm.beta',]
     layer_dict = {}
     final = []
     for i in range(11,-1,-1):
