@@ -634,9 +634,9 @@ def main():
         cache_dir=args.cache_dir if args.cache_dir else None,
     )
 
-    model_state_dict = "tmp/STS-B_baseline/pytorch_model.bin"
+    model_state_dict = "weights/bert-base-cased-pytorch_model.bin"
     print("+++++++++++++++++++++++++++++++++++++++++++++++")
-    print("Loaded STS-B_baseline model")
+    print("Loaded bert pretarained model")
     model.load_state_dict(torch.load(model_state_dict))
 
 
