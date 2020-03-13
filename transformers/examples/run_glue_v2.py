@@ -791,9 +791,9 @@ if __name__ == "__main__":
     weight_dict = OrderedDict()
     for i in range(12):
         if i not in [0,4,8,11]:
-        key = 'layer%s'%str(i)
-        reinitialize_weight_file = "weights/reinitialize_weights_%s.bin"%key
-        weight_dict[key] = reinitialize_weight_file
+            key = 'layer%s'%str(i)
+            reinitialize_weight_file = "weights/reinitialize_weights_%s.bin"%key
+            weight_dict[key] = reinitialize_weight_file
     weight_dict['no_reinitialize'] = "weights/reinitialize_weights_no_reinitialize.bin"
 
     print(weight_dict.keys())
