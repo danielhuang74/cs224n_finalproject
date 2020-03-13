@@ -796,8 +796,8 @@ if __name__ == "__main__":
     #         weight_dict[key] = reinitialize_weight_file
     # weight_dict['no_reinitialize'] = "weights/reinitialize_weights_no_reinitialize.bin"
     weight_dict = OrderedDict()
-    for layer_num in [0]:
-        for attention_head in range(2,12):
+    for layer_num in [1]:
+        for attention_head in range(0,12):
             key = 'layer%d_attention%d'%(layer_num,attention_head)
             reinitialize_weight_file = "weights/reinitialize_weights_%s.bin"%key
             weight_dict[key] = reinitialize_weight_file
@@ -814,4 +814,4 @@ if __name__ == "__main__":
         results[key] = result
 
     current_date = get_date()
-    save_result('outputs/allrun_results_attention_layer0_reinitialization_for_task_%s_%s.txt'%(args.task_name, current_date) , results)  
+    save_result('outputs/allrun_results_attention_layer1_reinitialization_for_task_%s_%s.txt'%(args.task_name, current_date) , results)  
