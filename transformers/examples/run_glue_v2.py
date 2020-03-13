@@ -789,10 +789,11 @@ if __name__ == "__main__":
     #     weight_dict[key] = reinitialize_weight_file
 
     weight_dict = OrderedDict()
-    for i in range(7,8):
-        key = 'layer%s'%str(i)
-        reinitialize_weight_file = "weights/reinitialize_weights_%s.bin"%key
-        weight_dict[key] = reinitialize_weight_file
+    for i in range(12):
+        if i not in [0,4,8,11]:
+            key = 'layer%s'%str(i)
+            reinitialize_weight_file = "weights/reinitialize_weights_%s.bin"%key
+            weight_dict[key] = reinitialize_weight_file
     weight_dict['no_reinitialize'] = "weights/reinitialize_weights_no_reinitialize.bin"
 
     print(weight_dict.keys())
@@ -806,4 +807,4 @@ if __name__ == "__main__":
         results[key] = result
 
     current_date = get_date()
-    save_result('outputs/allrun_results_layer_reinitialization_for_task_%s_%s.txt'%(args.task_name, current_date) , results)  
+    save_result('outputs/allrun_results_layer_reinitialization_for_task_%s_%s_not04811.txt'%(args.task_name, current_date) , results)  
