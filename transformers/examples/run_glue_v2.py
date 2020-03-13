@@ -610,6 +610,9 @@ def main(args, reinitialize_weight_file):
             result = dict((k + "_{}".format(global_step), v) for k, v in result.items())
             results.update(result)
 
+    current_date = get_date()
+    save_result('evaluation_result_%s_%s.txt'%(layer_key,current_date) , result)
+
     return results
 
 
@@ -800,8 +803,9 @@ if __name__ == "__main__":
     results = OrderedDict()
     for key, reinitialize_weight_file in weight_dict.items():
         print('-'*40 + 'start reinitializing layer '+  key+ '-'*40)
-        # args.output_dir = args.output_dir+'/'+args.task_name +'/'+ key
+        args.output_dir = args.output_dir+'/'+args.task_name +'/'+ key
         result =  main(args,reinitialize_weight_file)
         results[key] = result
 
+    current_date = get_date()
     save_result('outputs/allrun_results_layer_reinitialization_for_task_%s_%s.txt'%(args.task_name, current_date) , results)  
