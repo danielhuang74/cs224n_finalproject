@@ -100,41 +100,31 @@ MODEL_CLASSES = {
     "flaubert": (FlaubertConfig, FlaubertForSequenceClassification, FlaubertTokenizer),
 }
 
-def reinitialize_weights():
-    REINITIALIZE_WEIGHTS_FILE = "weights/reinitialize_klayers_k11.bin"
+def replace_weights():
+    #REINITIALIZE_WEIGHTS_FILE = "weights/reinitialize_klayers_k11.bin"
     pretrain_file="weights/bert-base-cased-pytorch_model.bin"
     print('----------------start loading pretrain--------------------------: ', pretrain_file)
     pretrain_state_dict = torch.load(pretrain_file, map_location="cpu")
     print('loaded pretrain: ', pretrain_file)
+
+    task1_weights_file = "tmp/MRPC_baseline_clean/pytorch_model.bin"
+    task1_state_dict = torch.load(task1_weights_file, map_location="cpu")
     
     state_dict = {}
-    for k in pretrain_state_dict.keys():
-#         changed_keys = ['bert.encoder.layer.10.attention.self.query.weight', 
-#                         'bert.encoder.layer.10.attention.self.query.bias',
-#                         'bert.encoder.layer.10.attention.self.key.weight',
-#                         'bert.encoder.layer.10.attention.self.key.bias',
-#                         'bert.encoder.layer.10.attention.self.value.weight',
-#                         'bert.encoder.layer.10.attention.self.value.bias',
-#                         'bert.encoder.layer.10.attention.output.dense.weight',
-#                         'bert.encoder.layer.10.attention.output.dense.bias',
-#                         'bert.encoder.layer.10.intermediate.dense.weight',
-#                         'bert.encoder.layer.10.intermediate.dense.bias',
-#                         'bert.encoder.layer.10.output.dense.weight',
-#                         'bert.encoder.layer.10.output.dense.bias'
-#                        ]
-#         if k in changed_keys:
-        if None:
-            print('REINITIALIZED: ', k)
-            parameters = truncated_normal(pretrain_state_dict[k].shape)
-            state_dict[k] = parameters
-        else:
-            print('PRETAIN: ', k)
-            state_dict[k] = pretrain_state_dict[k]
+    for pretrainedlayer in pretrain_state_dict.keys():
+        if ".layer." in pretrainedlayer:
+            pretrained_state_dict[pretrainedlayer] = task1_state_dict[pretrainedlayer]
+            print('REPLACED WITH TASK1 LAYER: ', k)
+            #parameters = truncated_normal(pretrain_state_dict[k].shape)
+            #state_dict[k] = parameters
+        #else:
+        #    print('PRETRAIN LAYER: ', k)
+        #    state_dict[k] = pretrain_state_dict[k]
         
-    torch.save(state_dict, REINITIALIZE_WEIGHTS_FILE)
-    print("saved reinitialized weights: ", REINITIALIZE_WEIGHTS_FILE)
+    torch.save(state_dict, str(task1_weights_file + "_replaced"))
+    print("saved reinitialized weights: ", str(task1_weights_file + "_replaced"))
     
-    return REINITIALIZE_WEIGHTS_FILE
+    return str(task1_weights_file + "_replaced")
 
 
 def set_seed(args):
@@ -664,8 +654,8 @@ def main():
         cache_dir=args.cache_dir if args.cache_dir else None,
     )
 
-    reinitialize_weight_file = reinitialize_weights()
-    state_dict = torch.load(reinitialize_weight_file, map_location="cpu")
+    replace_weight_file = replace_weights()
+    state_dict = torch.load(replace_weight_file, map_location="cpu")
 
     model = model_class.from_pretrained(
         args.model_name_or_path,
