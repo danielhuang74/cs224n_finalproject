@@ -795,6 +795,7 @@ if __name__ == "__main__":
         weight_dict[key] = reinitialize_weight_file
     weight_dict['no_reinitialize'] = "weights/reinitialize_weights_no_reinitialize.bin"
 
+    print(weight_dict.keys())
 
     
     results = OrderedDict()
