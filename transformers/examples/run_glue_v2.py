@@ -111,7 +111,7 @@ def get_date():
 def save_result(filename, result):
     w = csv.writer(open(filename, "w"))
     for key, val in result.items():
-        w.writerow([key, val])
+        w.writerow([str(key), val])
 
 
 from scipy.stats import truncnorm
@@ -789,7 +789,7 @@ if __name__ == "__main__":
     #     weight_dict[key] = reinitialize_weight_file
 
     weight_dict = OrderedDict()
-    for i in range(12):
+    for i in range(7,8):
         key = 'layer%s'%str(i)
         reinitialize_weight_file = "weights/reinitialize_weights_%s.bin"%key
         weight_dict[key] = reinitialize_weight_file
