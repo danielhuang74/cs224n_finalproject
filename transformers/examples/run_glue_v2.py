@@ -802,7 +802,6 @@ if __name__ == "__main__":
             reinitialize_weight_file = "weights/reinitialize_weights_%s.bin"%key
             weight_dict[key] = reinitialize_weight_file
             print("key: ", key, " value ",reinitialize_weight_file)
-        weight_dict = OrderedDict()
 
     print(weight_dict.keys())
 
