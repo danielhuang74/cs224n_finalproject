@@ -610,9 +610,6 @@ def main(args, reinitialize_weight_file):
             result = dict((k + "_{}".format(global_step), v) for k, v in result.items())
             results.update(result)
 
-    current_date = get_date()
-    save_result('evaluation_result_%s_%s.txt'%(layer_key,current_date) , result)
-
     return results
 
 
