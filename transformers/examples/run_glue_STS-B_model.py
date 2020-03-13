@@ -100,6 +100,42 @@ MODEL_CLASSES = {
     "flaubert": (FlaubertConfig, FlaubertForSequenceClassification, FlaubertTokenizer),
 }
 
+def reinitialize_weights():
+    REINITIALIZE_WEIGHTS_FILE = "weights/reinitialize_klayers_k11.bin"
+    pretrain_file="weights/bert-base-cased-pytorch_model.bin"
+    print('----------------start loading pretrain--------------------------: ', pretrain_file)
+    pretrain_state_dict = torch.load(pretrain_file, map_location="cpu")
+    print('loaded pretrain: ', pretrain_file)
+    
+    state_dict = {}
+    for k in pretrain_state_dict.keys():
+#         changed_keys = ['bert.encoder.layer.10.attention.self.query.weight', 
+#                         'bert.encoder.layer.10.attention.self.query.bias',
+#                         'bert.encoder.layer.10.attention.self.key.weight',
+#                         'bert.encoder.layer.10.attention.self.key.bias',
+#                         'bert.encoder.layer.10.attention.self.value.weight',
+#                         'bert.encoder.layer.10.attention.self.value.bias',
+#                         'bert.encoder.layer.10.attention.output.dense.weight',
+#                         'bert.encoder.layer.10.attention.output.dense.bias',
+#                         'bert.encoder.layer.10.intermediate.dense.weight',
+#                         'bert.encoder.layer.10.intermediate.dense.bias',
+#                         'bert.encoder.layer.10.output.dense.weight',
+#                         'bert.encoder.layer.10.output.dense.bias'
+#                        ]
+#         if k in changed_keys:
+        if None:
+            print('REINITIALIZED: ', k)
+            parameters = truncated_normal(pretrain_state_dict[k].shape)
+            state_dict[k] = parameters
+        else:
+            print('PRETAIN: ', k)
+            state_dict[k] = pretrain_state_dict[k]
+        
+    torch.save(state_dict, REINITIALIZE_WEIGHTS_FILE)
+    print("saved reinitialized weights: ", REINITIALIZE_WEIGHTS_FILE)
+    
+    return REINITIALIZE_WEIGHTS_FILE
+
 
 def set_seed(args):
     random.seed(args.seed)
@@ -627,17 +663,22 @@ def main():
         do_lower_case=args.do_lower_case,
         cache_dir=args.cache_dir if args.cache_dir else None,
     )
+
+    reinitialize_weight_file = reinitialize_weights()
+    state_dict = torch.load(reinitialize_weight_file, map_location="cpu")
+
     model = model_class.from_pretrained(
         args.model_name_or_path,
         from_tf=bool(".ckpt" in args.model_name_or_path),
         config=config,
         cache_dir=args.cache_dir if args.cache_dir else None,
+        state_dict=state_dict, #UNCOMMENT FOR PASS IN STATE DICT
     )
 
-    model_state_dict = "weights/bert-base-cased-pytorch_model.bin"
-    print("+++++++++++++++++++++++++++++++++++++++++++++++")
-    print("Loaded bert pretarained model")
-    model.load_state_dict(torch.load(model_state_dict))
+    #model_state_dict = "weights/bert-base-cased-pytorch_model.bin"
+    #print("+++++++++++++++++++++++++++++++++++++++++++++++")
+    #print("Loaded bert pretarained model")
+    #model.load_state_dict(torch.load(model_state_dict))
 
 
 
