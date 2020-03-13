@@ -100,14 +100,15 @@ MODEL_CLASSES = {
     "flaubert": (FlaubertConfig, FlaubertForSequenceClassification, FlaubertTokenizer),
 }
 
-def replace_weights():
+def replace_weights(args):
     #REINITIALIZE_WEIGHTS_FILE = "weights/reinitialize_klayers_k11.bin"
     pretrain_file="weights/bert-base-cased-pytorch_model.bin"
     print('----------------start loading pretrain--------------------------: ', pretrain_file)
     pretrain_state_dict = torch.load(pretrain_file, map_location="cpu")
     print('loaded pretrain: ', pretrain_file)
 
-    task1_weights_file = "tmp/MRPC_baseline_clean/pytorch_model.bin"
+    task1_weights_file = args.other_finetuned_model
+    print('loaded task1: ', task1_weights_file)
     task1_state_dict = torch.load(task1_weights_file, map_location="cpu")
     
     state_dict = {}
@@ -574,6 +575,12 @@ def main():
     parser.add_argument("--local_rank", type=int, default=-1, help="For distributed training: local_rank")
     parser.add_argument("--server_ip", type=str, default="", help="For distant debugging.")
     parser.add_argument("--server_port", type=str, default="", help="For distant debugging.")
+    parser.add_argument(
+        "--other_finetuned_model", 
+        default=None, 
+        type=str, 
+        help="Loading finetuned  model instead of pretrained BERT",
+    )
     args = parser.parse_args()
 
     if (
@@ -653,7 +660,7 @@ def main():
         cache_dir=args.cache_dir if args.cache_dir else None,
     )
 
-    replace_weight_file = replace_weights()
+    replace_weight_file = replace_weights(args)
     state_dict = torch.load(replace_weight_file, map_location="cpu")
 
     model = model_class.from_pretrained(
