@@ -748,45 +748,52 @@ if __name__ == "__main__":
 
     #------------------------------loop over reinitialization runs------------------------------------------------------------
 
-    l = [                    'bert.encoder.layer.NUM.attention.self.query.weight',
-                    'bert.encoder.layer.NUM.attention.self.query.bias',
-                    'bert.encoder.layer.NUM.attention.self.key.weight',
-                    'bert.encoder.layer.NUM.attention.self.key.bias',
-                    'bert.encoder.layer.NUM.attention.self.value.weight',
-                    'bert.encoder.layer.NUM.attention.self.value.bias',
-                    'bert.encoder.layer.NUM.attention.output.dense.weight',
-                    'bert.encoder.layer.NUM.attention.output.dense.bias',
-                    'bert.encoder.layer.NUM.attention.output.LayerNorm.gamma',
-                    'bert.encoder.layer.NUM.attention.output.LayerNorm.beta',
-                    'bert.encoder.layer.NUM.intermediate.dense.weight',
-                    'bert.encoder.layer.NUM.intermediate.dense.bias',
-                    'bert.encoder.layer.NUM.output.dense.weight',
-                    'bert.encoder.layer.NUM.output.dense.bias',
-                    'bert.encoder.layer.NUM.output.LayerNorm.gamma',
-                    'bert.encoder.layer.NUM.output.LayerNorm.beta',]
-    layer_dict = OrderedDict()
-    final = []
+    # l = [                    'bert.encoder.layer.NUM.attention.self.query.weight',
+    #                 'bert.encoder.layer.NUM.attention.self.query.bias',
+    #                 'bert.encoder.layer.NUM.attention.self.key.weight',
+    #                 'bert.encoder.layer.NUM.attention.self.key.bias',
+    #                 'bert.encoder.layer.NUM.attention.self.value.weight',
+    #                 'bert.encoder.layer.NUM.attention.self.value.bias',
+    #                 'bert.encoder.layer.NUM.attention.output.dense.weight',
+    #                 'bert.encoder.layer.NUM.attention.output.dense.bias',
+    #                 'bert.encoder.layer.NUM.attention.output.LayerNorm.gamma',
+    #                 'bert.encoder.layer.NUM.attention.output.LayerNorm.beta',
+    #                 'bert.encoder.layer.NUM.intermediate.dense.weight',
+    #                 'bert.encoder.layer.NUM.intermediate.dense.bias',
+    #                 'bert.encoder.layer.NUM.output.dense.weight',
+    #                 'bert.encoder.layer.NUM.output.dense.bias',
+    #                 'bert.encoder.layer.NUM.output.LayerNorm.gamma',
+    #                 'bert.encoder.layer.NUM.output.LayerNorm.beta',]
+    # layer_dict = OrderedDict()
+    # final = []
 
-    for i in range(11,-1,-1):
-        new_l = []
-        for layer in l:
-            layer = layer.replace('NUM',str(i))
-            new_l.append(layer)
-        final = final + new_l 
-        key = 'layer%s'%str(i)
-        layer_dict[key] = final
-    layer_dict['no_reinitialize'] = []
+    # for i in range(11,-1,-1):
+    #     new_l = []
+    #     for layer in l:
+    #         layer = layer.replace('NUM',str(i))
+    #         new_l.append(layer)
+    #     final = final + new_l 
+    #     key = 'layer%s'%str(i)
+    #     layer_dict[key] = final
+    # layer_dict['no_reinitialize'] = []
 
-    current_date = get_date()
-    print(current_date)
-    print('-'*40 + 'reinitialize all layer list'+ '-'*40)
-    print("layer_dict",layer_dict)
-    save_result('outputs/layer_dict_%s.txt'%(current_date) , layer_dict)
+    # current_date = get_date()
+    # print(current_date)
+    # print('-'*40 + 'reinitialize all layer list'+ '-'*40)
+    # print("layer_dict",layer_dict)
+    # save_result('outputs/layer_dict_%s.txt'%(current_date) , layer_dict)
+
+    # weight_dict = OrderedDict()
+    # for key, layer_list in layer_dict.items():
+    #     reinitialize_weight_file = reinitialize_weights(key, layer_list)
+    #     weight_dict[key] = reinitialize_weight_file
 
     weight_dict = OrderedDict()
-    for key, layer_list in layer_dict.items():
-        reinitialize_weight_file = reinitialize_weights(key, layer_list)
+    for i in range(0):
+        key = 'layer%s'%str(i)
+        REINITIALIZE_WEIGHTS_FILE = "weights/reinitialize_weights_%s.bin"%key
         weight_dict[key] = reinitialize_weight_file
+    weight_dict['no_reinitialize'] = "weights/reinitialize_weights_no_reinitialize.bin"
 
 
     
