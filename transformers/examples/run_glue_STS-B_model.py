@@ -117,9 +117,8 @@ def replace_weights():
             print('REPLACED WITH TASK1 LAYER: ', pretrainedlayer)
             #parameters = truncated_normal(pretrain_state_dict[k].shape)
             #state_dict[k] = parameters
-        #else:
-        #    print('PRETRAIN LAYER: ', k)
-        #    state_dict[k] = pretrain_state_dict[k]
+        else:
+            print('PRETRAIN LAYER: ', pretrainedlayer)
         
     torch.save(state_dict, str(task1_weights_file + "_replaced"))
     print("saved reinitialized weights: ", str(task1_weights_file + "_replaced"))
