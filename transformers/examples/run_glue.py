@@ -647,7 +647,7 @@ def main():
     if model_state_dict != None: 
         print("+++++++++++++++++++++++++++++++++++++++++++++++")
         print("Loaded {} model".format(model_state_dict))
-        model = model.load_state_dict(torch.load(model_state_dict))
+        model.load_state_dict(torch.load(model_state_dict))
 
 
 
