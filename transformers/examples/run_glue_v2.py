@@ -790,13 +790,20 @@ if __name__ == "__main__":
 
     weight_dict = OrderedDict()
     for i in range(12):
-        if i not in [0,4,8,11]:
-            key = 'layer%s'%str(i)
-            reinitialize_weight_file = "weights/reinitialize_weights_%s.bin"%key
-            weight_dict[key] = reinitialize_weight_file
+        # if i not in [0,4,8,11]:
+        key = 'layer%s'%str(i)
+        reinitialize_weight_file = "weights/reinitialize_weights_%s.bin"%key
+        weight_dict[key] = reinitialize_weight_file
     weight_dict['no_reinitialize'] = "weights/reinitialize_weights_no_reinitialize.bin"
-
-    print(weight_dict.keys())
+    # weight_dict = OrderedDict()
+    # for layer_num in [1]:
+    #     for attention_head in range(0,12):
+    #         key = 'layer%d_attention%d'%(layer_num,attention_head)
+    #         reinitialize_weight_file = "weights/reinitialize_weights_%s.bin"%key
+    #         weight_dict[key] = reinitialize_weight_file
+    #         print("key: ", key, " value ",reinitialize_weight_file)
+    # #weight_dict['layer0_attention0'] = 'weights/reinitialize_weights_layer0_attention0.bin'
+    # print(weight_dict.keys())
 
     
     results = OrderedDict()
@@ -807,4 +814,4 @@ if __name__ == "__main__":
         results[key] = result
 
     current_date = get_date()
-    save_result('outputs/allrun_results_layer_reinitialization_for_task_%s_%s_not04811.txt'%(args.task_name, current_date) , results)  
+    save_result('outputs/allrun_results_layer_reinitialization_for_task_%s_%s.txt'%(args.task_name, current_date) , results)  
