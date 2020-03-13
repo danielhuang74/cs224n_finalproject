@@ -789,10 +789,10 @@ if __name__ == "__main__":
     #     weight_dict[key] = reinitialize_weight_file
 
     weight_dict = OrderedDict()
-    for i in range(0):
-        key = 'layer%s'%str(i)
-        REINITIALIZE_WEIGHTS_FILE = "weights/reinitialize_weights_%s.bin"%key
-        weight_dict[key] = reinitialize_weight_file
+    # for i in range(0):
+    #     key = 'layer%s'%str(i)
+    #     REINITIALIZE_WEIGHTS_FILE = "weights/reinitialize_weights_%s.bin"%key
+    #     weight_dict[key] = reinitialize_weight_file
     weight_dict['no_reinitialize'] = "weights/reinitialize_weights_no_reinitialize.bin"
 
 
