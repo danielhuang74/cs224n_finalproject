@@ -108,6 +108,7 @@ def replace_weights(args):
     print('loaded pretrain: ', pretrain_file)
 
     task1_weights_file = args.other_finetuned_model
+    print('loaded task1: ', task1_weights_file)
     task1_state_dict = torch.load(task1_weights_file, map_location="cpu")
     
     state_dict = {}
