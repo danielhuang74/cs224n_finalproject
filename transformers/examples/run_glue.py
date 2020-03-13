@@ -646,7 +646,7 @@ def main():
     model_state_dict = args.other_finetuned_model
     if model_state_dict != None: 
         print("+++++++++++++++++++++++++++++++++++++++++++++++")
-        print("Loaded CoLA model")
+        print("Loaded {} model".format(model_state_dict))
         model = model.load_state_dict(torch.load(model_state_dict))
 
 
