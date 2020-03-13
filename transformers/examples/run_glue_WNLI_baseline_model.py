@@ -636,7 +636,7 @@ def main():
 
     model_state_dict = "tmp/WNLI_baseline/pytorch_model.bin"
     print("+++++++++++++++++++++++++++++++++++++++++++++++")
-    print("Loaded CoLA model")
+    print("Loaded WNLI model")
     model.load_state_dict(torch.load(model_state_dict))
 
 
