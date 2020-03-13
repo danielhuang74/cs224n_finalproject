@@ -113,7 +113,7 @@ def replace_weights():
     state_dict = {}
     for pretrainedlayer in pretrain_state_dict.keys():
         if ".layer." in pretrainedlayer:
-            pretrained_state_dict[pretrainedlayer] = task1_state_dict[pretrainedlayer]
+            pretrain_state_dict[pretrainedlayer] = task1_state_dict[pretrainedlayer]
             print('REPLACED WITH TASK1 LAYER: ', k)
             #parameters = truncated_normal(pretrain_state_dict[k].shape)
             #state_dict[k] = parameters
