@@ -800,7 +800,7 @@ if __name__ == "__main__":
         for attention_head in range(1,12):
             key = 'layer%d_attention%d'%(layer_num,attention_head)
             reinitialize_weight_file = "weights/reinitialize_weights_%s.bin"%key
-            weight_dict[key] = reinitialize_weight_file
+            weight_dict[key] = reinitialize_weight_fileß
             print("key: ", key, " value ",reinitialize_weight_file)
     #weight_dict['layer0_attention0'] = 'weights/reinitialize_weights_layer0_attention0.bin'
     print(weight_dict.keys())
@@ -814,4 +814,4 @@ if __name__ == "__main__":
         results[key] = result
 
     current_date = get_date()
-    save_result('outputs/allrun_results_attention_layer0_1_reinitialization_for_task_%s_%s.txt'%(args.task_name, current_date) , results)  
+    save_result('outputs/allrun_results_attention_layer0_reinitialization_for_task_%s_%s.txt'%(args.task_name, current_date) , results)  
