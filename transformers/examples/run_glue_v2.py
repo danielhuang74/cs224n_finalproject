@@ -808,12 +808,12 @@ if __name__ == "__main__":
     # print(weight_dict.keys())
 
     
-    # results = OrderedDict()
-    # for key, reinitialize_weight_file in weight_dict.items():
-    #     print('-'*40 + 'start reinitializing layer '+  key+ '-'*40)
-    #     args.output_dir = args.output_dir+'/'+args.task_name +'/'+ key
-    #     result =  main(args,reinitialize_weight_file)
-    #     results[key] = result
+    results = OrderedDict()
+    for key, reinitialize_weight_file in weight_dict.items():
+        print('-'*40 + 'start reinitializing layer '+  key+ '-'*40)
+        args.output_dir = args.output_dir+'/'+args.task_name +'/'+ key
+        result =  main(args,reinitialize_weight_file)
+        results[key] = result
 
     current_date = get_date()
     save_result('outputs/allrun_results_layer_reinitialization_for_task_%s_%s.txt'%(args.task_name, current_date) , results)  
