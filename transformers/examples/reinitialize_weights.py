@@ -62,7 +62,8 @@ def gen_all_weights():
                     ]
     layer_dict = OrderedDict()
 
-    for i in range(12):
+    # for i in range(12):
+    for i in [0]:
     	new_l = []
     	for layer in l: 
     		layer = layer.replace('NUM',str(i))
@@ -73,7 +74,8 @@ def gen_all_weights():
 
     results = {}
     for key, layer_list in layer_dict.items():
-    	for attention_head in range(0,12):
+    	for attention_head in [1]:
+    	# for attention_head in range(0,12):
     		new_key = key+'_attention%s'%str(attention_head)
     		print('-'*40 + 'start reinitializing layer '+  new_key+ '-'*40)
     		result = reinitialize_weights(new_key, layer_list, attention_head)
