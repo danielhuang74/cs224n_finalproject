@@ -801,13 +801,13 @@ if __name__ == "__main__":
 
     # # attention head loop
     weight_dict = OrderedDict()
-    # for layer_num in [1]:
-    #     for attention_head in range(0,12):
-    #         key = 'layer%d_attention%d'%(layer_num,attention_head)
-    #         reinitialize_weight_file = "weights/reinitialize_weights_%s.bin"%key
-    #         weight_dict[key] = reinitialize_weight_file
-    #         print("key: ", key, " value ",reinitialize_weight_file)
-    weight_dict['layer0_attention1'] = 'weights/reinitialize_weights_layer0_attention1.bin'
+    for layer_num in [0]:
+        for attention_head in range(12):
+            key = 'layer%d_attention%d'%(layer_num,attention_head)
+            reinitialize_weight_file = "weights/reinitialize_weights_%s.bin"%key
+            weight_dict[key] = reinitialize_weight_file
+            print("key: ", key, " value ",reinitialize_weight_file)
+    # weight_dict['layer0_attention1'] = 'weights/reinitialize_weights_layer0_attention1.bin'
     print(weight_dict.keys())
 
     
@@ -819,4 +819,4 @@ if __name__ == "__main__":
         results[key] = result
 
     current_date = get_date()
-    save_result('outputs/allrun_results_layer_reinitialization_for_task_%s_%s.txt'%(args.task_name, current_date) , results)  
+    save_result('outputs/allrun_results_layer0_attention_reinitialization_for_task_%s_%s.txt'%(args.task_name, current_date) , results)  
