@@ -795,7 +795,8 @@ if __name__ == "__main__":
         key = 'layer%s'%str(i)
         reinitialize_weight_file = "weights/reinitialize_weights_%s.bin"%key
         weight_dict[key] = reinitialize_weight_file
-    weight_dict['no_reinitialize'] = "weights/reinitialize_weights_no_reinitialize.bin"
+    #weight_dict['no_reinitialize'] = "weights/reinitialize_weights_no_reinitialize.bin"
+    
     # weight_dict = OrderedDict()
     # for layer_num in [1]:
     #     for attention_head in range(0,12):
