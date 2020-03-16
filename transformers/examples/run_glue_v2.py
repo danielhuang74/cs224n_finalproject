@@ -790,24 +790,24 @@ if __name__ == "__main__":
 
 
     # loop over layers for reinitialization
-    weight_dict = OrderedDict()
-    for i in range(12):
-    # for i in [10]:
-        # if i not in [0,4,8,11]:
-        key = 'layer%s'%str(i)
-        reinitialize_weight_file = "weights/reinitialize_weights_%s.bin"%key
-        weight_dict[key] = reinitialize_weight_file
-    weight_dict['no_reinitialize'] = "weights/reinitialize_weights_no_reinitialize.bin"
+    # weight_dict = OrderedDict()
+    # for i in range(12):
+    # # for i in [10]:
+    #     # if i not in [0,4,8,11]:
+    #     key = 'layer%s'%str(i)
+    #     reinitialize_weight_file = "weights/reinitialize_weights_%s.bin"%key
+    #     weight_dict[key] = reinitialize_weight_file
+    # weight_dict['no_reinitialize'] = "weights/reinitialize_weights_no_reinitialize.bin"
 
     # # attention head loop
-    # weight_dict = OrderedDict()
-    # for layer_num in [0]:
-    #     for attention_head in range(12):
-    #         key = 'layer%d_attention%d'%(layer_num,attention_head)
-    #         reinitialize_weight_file = "weights/reinitialize_weights_%s.bin"%key
-    #         weight_dict[key] = reinitialize_weight_file
-    #         print("key: ", key, " value ",reinitialize_weight_file)
-    # weight_dict['layer0_attention1'] = 'weights/reinitialize_weights_layer0_attention1.bin'
+    weight_dict = OrderedDict()
+    for layer_num in [11]:
+        for attention_head in range(12):
+            key = 'layer%d_attention%d'%(layer_num,attention_head)
+            reinitialize_weight_file = "weights/reinitialize_weights_%s.bin"%key
+            weight_dict[key] = reinitialize_weight_file
+            print("key: ", key, " value ",reinitialize_weight_file)
+    weight_dict['layer0_attention1'] = 'weights/reinitialize_weights_layer0_attention1.bin'
     print(weight_dict.keys())
 
     
