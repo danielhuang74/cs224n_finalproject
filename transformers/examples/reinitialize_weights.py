@@ -63,7 +63,7 @@ def gen_all_weights():
     layer_dict = OrderedDict()
 
     # for i in range(12):
-    for i in [11]:
+    for i in [10]:
     	new_l = []
     	for layer in l: 
     		layer = layer.replace('NUM',str(i))
