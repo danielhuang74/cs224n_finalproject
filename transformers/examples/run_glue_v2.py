@@ -807,7 +807,7 @@ if __name__ == "__main__":
             reinitialize_weight_file = "weights/reinitialize_weights_%s.bin"%key
             weight_dict[key] = reinitialize_weight_file
             print("key: ", key, " value ",reinitialize_weight_file)
-    weight_dict['layer0_attention1'] = 'weights/reinitialize_weights_layer0_attention1.bin'
+
     print(weight_dict.keys())
 
     
